@@ -98,8 +98,8 @@ def solveredwv(data, s_r, s_w, silent=None, zeropad=None):
     gamma = 1
 
     els = len(data)
-    pow = np.ceil(alog(els) / np.alog(2.))
-    if (2**pow != els and zeropad is not None) then begin
+    pow = np.ceil(alog(els) / np.log(2.))
+    if (2**pow != els and zeropad is not None):
         diff = 2**pow - els
         left = np.floor(diff / 2.)
         right = diff - left
@@ -119,7 +119,7 @@ def solveredwv(data, s_r, s_w, silent=None, zeropad=None):
     k = 0
     par = np.arange(total(var))
     scale = np.arange(total(var))
-    if (var[0] == 1) then begin
+    if (var[0] == 1):
         par[k] = mean(sigma_r)
         # scale(k++) = sigma_r(1) - sigma_r(0)
         scale[k + 1] = sigma_r[1] - sigma_r[0]

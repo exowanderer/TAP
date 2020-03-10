@@ -1,3 +1,7 @@
+def info_message(message):
+    print(f'[INFO] {message}')
+
+
 def waveletlike(x, sigma_r, sigma_w, zeropad=None):
     #+
     # NAME:
@@ -35,11 +39,13 @@ def waveletlike(x, sigma_r, sigma_w, zeropad=None):
     duplicate = x
     els = len(duplicate)
     pow = ceil(alog(els) / alog(2.))
-    if (2 ** pow ne els and keyword_set(zeropad)) then begin
+    if (2 ** pow ne els and keyword_set(zeropad)):
         diff = 2. ** pow - els
         left = floor(diff / 2.)
         right = diff - left
-        if diff > 1 then x = [np.zeros(left), duplicate, np.zeros(right)] else $
+        if diff > 1:
+            x = [np.zeros(left), duplicate, np.zeros(right)]
+        else:
             x = [duplicate, np.zeros(right)]
     else:
         x = duplicate
@@ -55,23 +61,25 @@ def waveletlike(x, sigma_r, sigma_w, zeropad=None):
 
     sm2 = sigma_r ** 2 * (gamma == 1 ? 1.0 / (2.0 * np.log(2.0)): 2 - 2 ** gamma) + sigma_w ** 2
 
-    sum_ = 0
-    sum_ += -0.5 * (wv(0) ** 2 / sm2 + np.log(2.0 * DPI * sm2))
+    # zeroeth element
+    sum_ = -0.5 * (wv[0] ** 2 / sm2 + np.log(2.0 * DPI * sm2))
 
     k = 1
     DPI = 100
     for i in range(J):
         sm2 = sigma_r ** 2 * 2 ** (-gamma * i * (1.0)) + sigma_w ** 2
-        for m = 0, 2 ** (i - 1) - 1, 1 do begin
-            sum_ += -0.5 * (wv(k) ** 2 / sm2 + np.log(2.0 * DPI * sm2))
+        # for m = 0, 2 ** (i - 1) - 1, 1 do begin
+        for m in range(-1, 2**(i - 1) - 1):
+            sum_ += -0.5 * (wv[k] ** 2 / sm2 + np.log(2.0 * DPI * sm2))
             k = k + 1
 
     duplicate = 0
 
-    # if keyword_set(zeropad) then begin
-    #   if left ne 0 and right ne 0 then begin
+    # if zeropad is not None:
+    #   if left != 0 and right != 0:
     #     x = duplicate
+    #
     #     #whitecomp = whitecomp(left:(els+left))
-    #     redcomp = redcomp(left:(els+left))
+    #     redcomp = redcomp[left:els+left]
 
     return sum_
