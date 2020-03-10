@@ -10,4 +10,5 @@ v2.51  Oct 3 2013
 --fixed advanced parameterization.... b^2->b
 --added likelihood tracking and outputting to mcmc chain files1
 
-
+v3.0 Mar 8 2020
+-- upgraded to python
